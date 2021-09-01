@@ -24,7 +24,7 @@ class DepartmentController extends Controller
     {
         $admins = Admin::all();
         $departments = department::all();
-        return view('departments.view_departments')->with('admins',$admins)->with('departments',$departments);
+        return view('departments.view_department')->with('admins',$admins)->with('departments',$departments);
 
     }
 
@@ -65,7 +65,8 @@ class DepartmentController extends Controller
         $department->department_head = $request->input('department_head');
         $department->no_of_students= $request->input('no_of_students');
         $department->save();
- 
+        
+        alert()->success('Department has been added successfully','Success');
          return redirect('/admin/department');
     }
 
@@ -121,7 +122,8 @@ class DepartmentController extends Controller
             $department->department_head = $request->input('department_head');
             $department->no_of_students= $request->input('no_of_students');
             $department->save();
-     
+            
+            alert()->success('Department has been updated successfully','Success');
             return redirect('/admin/halls');
     }
 
@@ -135,7 +137,8 @@ class DepartmentController extends Controller
     {
         $departments = department::find($id);
         $departments->delete();
-
+        
+        alert()->warning('Department deleted successfully','Delete Department');
         return redirect('/admin/department');
     }
 }

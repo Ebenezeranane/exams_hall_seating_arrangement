@@ -32,7 +32,9 @@ class SeatAllocationController extends Controller
      */
     public function create()
     {
-        return view('allocation.make_allocation');
+        $halls = Exams_hall::all();
+
+        return view('allocation.make_allocation')->with('halls',$halls);
     }
 
     /**

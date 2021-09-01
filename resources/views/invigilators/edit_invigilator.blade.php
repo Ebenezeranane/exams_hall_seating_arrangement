@@ -24,9 +24,7 @@
 
           <span class="user-role">Administrator</span>
           <div class="user-status">
-            <a href="#">
-              <i class="fa fa-circle"></i>
-              <span>Online</span></a>
+            
           </div>
         </div>
       </div>
@@ -96,8 +94,8 @@
             <a href="#"><i class="fas fa-chair"></i><span>SEAT ALLOCATION<span></a>
             <div class="sidebar-submenu">
               <ul>
-                <li><a href="/admin/allocation/create">Allocate seats </a></li>
-                <li><a href="/admin/allocation">View Seats </a></li>              
+                <li><a href="/admin/">Allocate seats </a></li>
+                <li><a href="/admin/create">View Seats </a></li>              
               </ul>
             </div>
           </li>
@@ -121,30 +119,39 @@
             <div class="row justify-content-center">
                 <div class="col-md-10">
                   <div class="card shadow-sm">
-                    <div class="card-header text-dark ">
-                      <strong>ALLOCATION PROCESS</strong>
-                      <span class="pull-right"><i class="fas fa-chair fa-2x icon-color"></i></span>
+                    <div class="card-header text-dark">
+                      <strong>EDIT INVIGILATOR</strong>
+                      <span class="pull-right"><i class="fas fa-eye fa-2x icon-color"></i></span>
                     </div>
                     <div class="card-body">
                       <div class="form-group">
-                        {!! Form::open(['method'=>'POST','action'=>'SeatAllocationController@store']) !!}
-                        
-                        
-                        Select Hall
-                        {!! Form::select('hall',['TF1'=>'TF1','SF1'=>'SF1'],'' ,['class'=>'form-control','placeholder'=>'-hall- ','required'=>'required']) !!} <br>
-                        
-
-                        Select Departments
-                        {!! Form::select('allocate_department', ['Computer Science'=>'Computer Science','Maths'=>'Maths'],'' ,['class'=>'form-control','placeholder'=>'-department- ','required'=>'required']) !!} <br>
-                        {!! Form::select('allocate_dept', ['Computer Science'=>'Computer Science','Maths'=>'Maths'],'' ,['class'=>'form-control','placeholder'=>'-department- ','required'=>'required']) !!} <br>
-
-                        
-                              
-                       
+                        {!! Form::open(['action'=>['InvigilatorController@update',$invigilator->id],'method'=>'POST','enctype'=>'multipart/form-data']) !!}   
+                    
                        
                   
-                  {!! Form::submit('allocate', ['class'=>'btn btn-primary mt-3 ']) !!} 
+                              
+                       
+                        Invigilator Name
+                           {!! Form::text('Invigilator_name',$invigilator->Invigilator_name, ['class'=>'form-control','placeholder'=>'Invigilator Name','required'=>'required']) !!} <br>
            
+           
+                        E mail Address 
+                           {!! Form::text('e_mail',$invigilator->e_mail, ['class'=>'form-control','placeholder'=>'E mail Address','required'=>'required']) !!} <br>
+               
+                    
+                        Phone Number
+                           {!! Form::text('phone',$invigilator->phone, ['class'=>'form-control','placeholder'=>'Phone Number','required'=>'required']) !!} <br>
+               
+                    
+                    
+                        Department  
+                           {!! Form::text('department',$invigilator->department, ['class'=>'form-control','placeholder'=>'enter Department ','required'=>'required']) !!} <br>
+                  
+                        Upload Picture 
+                           {!! Form::file('picture', ['class'=>'form-control','required'=>'required']) !!}
+                     
+                  {!! Form::submit('add', ['class'=>'btn btn-primary mt-3 ','required'=>'required']) !!} 
+                   {!! Form::hidden('_method', 'PUT') !!}
                          {!! Form::close() !!}  
                    </div>
                     </div>

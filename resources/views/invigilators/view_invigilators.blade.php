@@ -24,9 +24,7 @@
 
           <span class="user-role">Administrator</span>
           <div class="user-status">
-            <a href="#">
-              <i class="fa fa-circle"></i>
-              <span>Online</span></a>
+            
           </div>
         </div>
       </div>
@@ -96,8 +94,8 @@
             <a href="#"><i class="fas fa-chair"></i><span>SEAT ALLOCATION<span></a>
             <div class="sidebar-submenu">
               <ul>
-                <li><a href="/admin/allocation/create">Allocate seats </a></li>
-                <li><a href="/admin/allocation">View Seats </a></li>              
+                <li><a href="/admin/">Allocate seats </a></li>
+                <li><a href="/admin/create">View Seats </a></li>              
               </ul>
             </div>
           </li>
@@ -117,44 +115,69 @@
     <div class="container-fluid">
       <div class="row">
     
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-10">
-                  <div class="card shadow-sm">
-                    <div class="card-header text-dark ">
-                      <strong>ALLOCATION PROCESS</strong>
-                      <span class="pull-right"><i class="fas fa-chair fa-2x icon-color"></i></span>
-                    </div>
-                    <div class="card-body">
-                      <div class="form-group">
-                        {!! Form::open(['method'=>'POST','action'=>'SeatAllocationController@store']) !!}
-                        
-                        
-                        Select Hall
-                        {!! Form::select('hall',['TF1'=>'TF1','SF1'=>'SF1'],'' ,['class'=>'form-control','placeholder'=>'-hall- ','required'=>'required']) !!} <br>
-                        
-
-                        Select Departments
-                        {!! Form::select('allocate_department', ['Computer Science'=>'Computer Science','Maths'=>'Maths'],'' ,['class'=>'form-control','placeholder'=>'-department- ','required'=>'required']) !!} <br>
-                        {!! Form::select('allocate_dept', ['Computer Science'=>'Computer Science','Maths'=>'Maths'],'' ,['class'=>'form-control','placeholder'=>'-department- ','required'=>'required']) !!} <br>
-
-                        
-                              
-                       
-                       
-                  
-                  {!! Form::submit('allocate', ['class'=>'btn btn-primary mt-3 ']) !!} 
-           
-                         {!! Form::close() !!}  
-                   </div>
-                    </div>
-                
+        <div class="container-fluid">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="card shadow-sm">
+                  <div class="card-header text-dark"> <strong>INVIGILATORS</strong>
+                    <a href="/admin/invigilator/create" class="btn  btn-sm pull-right icon-color"><i class="fas fa-plus-circle fa-2x"></i></a>
                   </div>
-           
-                    </div>
-                </div>
-               </div>
+                  <div class="card-body">
+                    @if(count($invigilators)>0)
+                    <table class="table table-striped table-responsive-sm table-responsive-md">
+                      <thead>
+                        <tr>
+                          <th>#SN</th>
+                          <th>Invigilator Name</th>
+                          <th>E Mail Address</th>
+                          <th>Phone</th>
+                          <th>Picture</th>
+                          <th>Department</th>
+                          
 
+                         
+                          
+                          
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @foreach($invigilators as $invigilator)
+                        <tr>
+                          <td>{{ $invigilator->id }}</td>
+                          <td>{{ $invigilator->Invigilator_name }}</td>
+                          <td>{{ $invigilator->e_mail }}</td>
+                          <td>{{ $invigilator->phone }}</td>
+                          <td><img style ="width: 80px;height:60px" src="/storage/pictures/{{ $invigilator->picture }}" alt="profile_pics"></td>
+
+
+                          <td>{{ $invigilator->department }}</td>
+                          
+                      
+                          <td>
+                            <a href="/admin/invigilator/{{ $invigilator->id }}/edit"><i class="fas fa-pen"></i></a>
+                            
+                          </td>
+                          <td>
+                            {!! Form::open(['action'=>['InvigilatorController@destroy',$invigilator->id],'method'=>'POST']) !!}
+                            {!! Form::hidden('_method', 'DELETE' ) !!}
+                            {!! Form::submit('DEL', ['class'=>'btn btn-danger btn-sm']) !!}
+                            {!! Form::close() !!}
+                          </td>
+                        </tr>
+                        @endforeach
+                      </tbody>
+                    </table>
+                    @else
+                    <h3><strong>There are no Invigilators registered </strong></h3>
+                    @endif
+                    
+                    
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
        
     </div>
   </main>
