@@ -119,20 +119,19 @@
             <div class="row">
               <div class="col-lg-12">
                 <div class="card shadow-sm">
-                  <div class="card-header text-dark"> <strong>ALL EXAMS HALLS</strong>
-                    <a href="/admin/halls/create" class="btn  btn-sm pull-right icon-color"><i class="fas fa-plus-circle fa-2x"></i></a>
+                  <div class="card-header text-dark"> <strong>ALLOCATIONS</strong>
                   </div>
                   <div class="card-body">
-                    @if(count($halls)>0)
+                    @if(count($allocations)>0)
                     <table class="table table-striped table-responsive-sm table-responsive-md">
                       <thead>
                         <tr>
                           <th>#SN</th>
-                          <th>Hall Name</th>
-                          <th>Location</th>
-                          <th>Rows</th>
-                          <th>Columns</th>
-                          <th>Seating Capacity</th>
+                          <th>Department</th>
+                          <th>Roll</th>
+                          <th>Hall</th>
+                          <th>Date Of Exam</th>
+                         
                           
 
                          
@@ -141,22 +140,19 @@
                         </tr>
                       </thead>
                       <tbody>
-                        @foreach($halls as $hall)
+                        @foreach($allocations as $allocation)
                         <tr>
-                          <td>{{ $hall->id }}</td>
-                          <td>{{ $hall->hall_name }}</td>
-                          <td>{{ $hall->location }}</td>
-                          <td>{{ $hall->rows }}</td>
-                          <td>{{ $hall->columns }}</td>
-                          <td>{{ $hall->seat_capacity }}</td>
+                          <td>{{ $allocation->id }}</td>
+                          <td>{{ $allocation->department }}</td>
+                          <td>{{ $allocation->roll }}</td>
+                          <td>{{ $allocation->hall }}</td>
+                          <td>{{ $allocation->exam_date }}</td>
+                          
                           
                       
+                      
                           <td>
-                            <a href="/admin/halls/{{ $hall->id }}/edit"><i class="fas fa-pen"></i></a>
-                            
-                          </td>
-                          <td>
-                            {!! Form::open(['action'=>['ExamsHallController@destroy',$hall->id],'method'=>'POST']) !!}
+                            {!! Form::open(['action'=>['SeatAllocationController@destroy',$allocation->id],'method'=>'POST']) !!}
                             {!! Form::hidden('_method', 'DELETE' ) !!}
                             {!! Form::submit('DEL', ['class'=>'btn btn-danger btn-sm']) !!}
                             {!! Form::close() !!}

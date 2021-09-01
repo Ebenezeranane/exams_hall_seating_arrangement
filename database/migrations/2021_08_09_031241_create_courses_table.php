@@ -18,6 +18,7 @@ class CreateCoursesTable extends Migration
             $table->string('course_name');
             $table->string('course_code');
             $table->integer('no_of_students');
+            $table->integer('user_id');
             $table->timestamps();
         });
     }

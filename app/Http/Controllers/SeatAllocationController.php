@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\SeatAllocation;
 use App\Exams_hall;
+use App\User;
 
 class SeatAllocationController extends Controller
 {
@@ -22,7 +23,12 @@ class SeatAllocationController extends Controller
      */
     public function index()
     {
-        
+        $users = User::all();
+        $halls = Exams_hall::all();
+        $allocations = SeatAllocation::all();
+
+        return view('allocation.view_allocation')->with('users',$users)->with('allocations',$allocations);
+
     }
 
     /**
@@ -49,6 +55,8 @@ class SeatAllocationController extends Controller
         $data = [];
         $department = "";
         $halls = Exams_hall::all();
+        $exam_date = $request->input('exam_date');
+        $user_id = auth()->user()->id;
         
         
         foreach ($halls as $hall) {
@@ -58,30 +66,41 @@ class SeatAllocationController extends Controller
             }
         }
         
-       
+        
         $hall = $request->input('hall');
 
-        for ($i=1; $i <= $rows ; $i++) { 
+        //make sure admin doesnt choose same course in allocation
+        if ($request->input('allocate_department')==$request->input('allocate_dept')){
+           
+            alert()->error('Please department selection must be different.', 'Error!')->autoclose(5000); 
+            return redirect('/admin/allocation/create');
+         }else{
+            for ($i=1; $i <= $rows ; $i++) { 
             
-            for ($j=1; $j <= $columns ; $j++) { 
-                if ($j%2==0){
-                  $department = $request->input('allocate_department');
+                for ($j=1; $j <= $columns ; $j++) { 
+                    if ($j%2==0){
+                      $department = $request->input('allocate_department');
+                       
+                   }else{
+                       $department = $request->input('allocate_dept');
+                   }  
+    
                    
-               }else{
-                   $department = $request->input('allocate_dept');
-               }  
-               $roll = 'Row'.$i.'Col'.$j;     
-               array_push($data, ['roll'=>$roll, 'department'=> $department,'hall'=>$hall]);
+                   $roll = 'Row'.$i.'Col'.$j;     
+                   array_push($data, ['roll'=>$roll, 'department'=> $department,'hall'=>$hall,'exam_date'=>$exam_date,'user_id'=>$user_id]);
+    
+              }
+            }
+            
+            
+           
+            SeatAllocation::insert($data);
+          
+            alert()->success('Allocation made successfully.', 'Success!');
+            return redirect('/admin/allocation');
+         }  
 
-          }
-        }
-        
-        
        
-        SeatAllocation::insert($data);
-      
-        alert()->success('Allocation made successfully.', 'Success!');
-        return redirect('/admin');
     }
 
     /**
@@ -126,6 +145,10 @@ class SeatAllocationController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $allocations = SeatAllocation::find($id);
+        $allocations->delete();
+        
+        alert()->warning('allocation deleted successfully','Delete allocation');
+        return redirect('/admin/allocation');
     }
 }

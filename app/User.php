@@ -5,6 +5,9 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Exams_hall;
+use App\SeatAllocation;
+use App\Course;
 
 class User extends Authenticatable
 {
@@ -16,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','programme','studentID','index'
     ];
 
     /**
@@ -36,4 +39,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function seat(){
+     return $this->hasOne(SeatAllocation::class);
+    }
+
+    public function course(){
+        return $this->hasOne(Course::class);
+       }
+
+      
 }

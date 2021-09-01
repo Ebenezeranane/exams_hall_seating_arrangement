@@ -130,15 +130,16 @@
                         {!! Form::open(['method'=>'POST','action'=>'SeatAllocationController@store']) !!}
                         
                         
-                        Select Hall
+                        Select Hall *
                         {!! Form::select('hall',['TF1'=>'TF1','SF1'=>'SF1'],'' ,['class'=>'form-control','placeholder'=>'-hall- ','required'=>'required']) !!} <br>
                         
 
-                        Select Departments
+                        Select Departments *
                         {!! Form::select('allocate_department', ['Computer Science'=>'Computer Science','Maths'=>'Maths'],'' ,['class'=>'form-control','placeholder'=>'-department- ','required'=>'required']) !!} <br>
                         {!! Form::select('allocate_dept', ['Computer Science'=>'Computer Science','Maths'=>'Maths'],'' ,['class'=>'form-control','placeholder'=>'-department- ','required'=>'required']) !!} <br>
-
-                        
+                       
+                        Date of Exam *
+                        {!! Form::date('exam_date','', ['class'=>'form-control','placeholder'=>'dd/mm/yy ','required'=>'required']) !!}
                               
                        
                        

@@ -67,6 +67,7 @@ class CourseController extends Controller
         $course->course_name= $request->input('course_name');
         $course->course_code = $request->input('course_code');
         $course->no_of_students= $request->input('no_of_students');
+        $course->user_id= auth()->user()->id;
         $course->save();
 
         alert()->success('Course has been added successfully.', 'Success!');

@@ -59,26 +59,66 @@
     
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-md-5 ml-4">
+                <div class="col-md-5 ml-4" >
                   <div class="card shadow-lg">
-                    <div class="card-header text-white">
-                     EXAMS INFORMATION
+                    <div class="card-header text-dark">
+                     <strong>EXAMS INFORMATION</strong>
                    </div>
                    <div class="card-body">
+                   
 
                    </div>
                     </div>
                 
                   </div>
 
-                  <div class="col-md-5">
+                  <div class="col-md-6">
                     <div class="card shadow-lg">
-                      <div class="card-header text-white">
-                       PERSONAL INFORMATION
+                      <div class="card-header text-dark">
+                       <strong>PERSONAL INFORMATION</strong>
                      </div>
 
                      <div class="card-body">
-                     
+
+
+
+                     <table class="table">
+                      
+                       <tbody>
+                         <tr>
+                           
+                           <td><strong>Name :</strong></td>
+                           <td>{{Auth::user()->name}}</td>
+                         </tr>
+                         <tr>
+                           
+                           <td><strong>Email Address:</strong></td>
+                           <td>  {{Auth::user()->email}}</td>
+                         </tr>
+
+                         <tr>
+                           
+                          <td> <strong>Programme :</strong></td>
+                          <td>{{Auth::user()->programme}}</td>
+                        </tr>
+
+                        <tr>
+                           
+                          <td>   <strong>Student ID  :</strong></td>
+                          <td>{{Auth::user()->studentID}}</td>
+                        </tr>
+
+                        <tr>
+                           
+                          <td>  <strong>Index Number :</strong></td>
+                          <td> {{Auth::user()->index}}</td>
+                        </tr>
+                       </tbody>
+                     </table>
+
+                      
+                    
+
                     </div>
                       </div>
                   

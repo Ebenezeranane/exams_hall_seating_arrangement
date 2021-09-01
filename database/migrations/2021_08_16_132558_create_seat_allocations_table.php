@@ -18,6 +18,9 @@ class CreateSeatAllocationsTable extends Migration
             $table->string('department')->nullable();
             $table->string('roll');
             $table->string('hall');
+            $table->string('exam_date');
+            $table->integer('user_id');
+
            
         
 
